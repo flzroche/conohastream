@@ -7,8 +7,28 @@
   <title>noindex-page</title>
 </head>
 <body>
-<h1>noindex page</h1>
 
-  
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+<!-- Or if you want the latest version from the main branch -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+<video id="video" controls autoplay playsinline></video>
+<script>
+  var video = document.getElementById('video');
+  var videoSrc = 'https://amateru.org/stream/video/master.m3u8';
+  //
+  // First check for native browser HLS support
+  //
+  if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = videoSrc;
+    //
+    // If no native HLS support, check if HLS.js is supported
+    //
+  } else if (Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource(videoSrc);
+    hls.attachMedia(video);
+  }
+</script>
+
 </body>
 </html>
